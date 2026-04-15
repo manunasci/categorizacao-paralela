@@ -1,0 +1,1 @@
+# categorizacao-paralela
