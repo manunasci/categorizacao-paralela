@@ -3,4 +3,6 @@ project(CategorizacaoParalela)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(CategorizacaoParalela main.cpp)
+add_executable(CategorizacaoParalela main.cpp
+        DataValidator.cpp
+        DataValidator.h)
