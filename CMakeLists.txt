@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(CategorizacaoParalela main.cpp
         DataValidator.cpp
         DataValidator.h
-        FileData.hpp)
+        FileData.hpp
+        DataAnalyzer.cpp
+        DataAnalyzer.hpp)
