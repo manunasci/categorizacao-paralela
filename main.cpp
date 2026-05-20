@@ -67,14 +67,16 @@ int main(int argc, char* argv[]) {
             }
 
             if (i == 1) {
-                file_data.columns[j].is_num = CategorizacaoParalela::DataValidator::ehNumero(matriz[i][j]);
+                file_data.columns[j].ix = j;
+                file_data.columns[j].is_num = CategorizacaoParalela::DataValidator::is_num(matriz[i][j]);
             }
         }
     }
 
     for (int i = 0; i < file_data.columns.size(); ++i) {
-        std::cout << file_data.columns[i].col_name << "|";
-        std::cout << file_data.columns[i].is_num << std::endl;
+        std::cout << file_data.columns[i].col_name << " | ";
+        std::cout << file_data.columns[i].is_num << " | ";
+        std::cout << file_data.columns[i].ix << std::endl;
     }
 
     return 0;

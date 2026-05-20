@@ -1,7 +1,7 @@
 #include "DataValidator.h"
 
 namespace CategorizacaoParalela {
-    bool DataValidator::ehNumero(const std::string& s) {
+    bool DataValidator::is_num(const std::string& s) {
         if (s.empty()) return false;
         size_t tam_string = s.length();
 

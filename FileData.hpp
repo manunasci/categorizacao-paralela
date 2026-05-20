@@ -7,6 +7,7 @@
 struct Column {
     std::string col_name;
     int is_num = 0;
+    int ix = 0;
 };
 
 struct FileData {

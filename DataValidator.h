@@ -7,7 +7,7 @@ namespace CategorizacaoParalela {
 
     class DataValidator {
     public:
-        static bool ehNumero(const std::string& s);
+        static bool is_num(const std::string& s);
     };
 
 }
