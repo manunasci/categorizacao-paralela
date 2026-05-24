@@ -1,4 +1,5 @@
 #include "DataAnalyzer.hpp"
+#include <cmath>
 
 namespace CategorizacaoParalela {
     float DataAnalyzer::mean(const std::vector<float>& vector) {
@@ -43,9 +44,7 @@ namespace CategorizacaoParalela {
         float sum_sqs = 0.0f;
 
         for (int i = 0; i < vector_size; ++i) {
-            float dif = vector[i] - median;
-
-            sum_sqs += dif * dif;
+            sum_sqs += (float)std::pow(vector[i] - median, 2);
         }
 
         variance = sum_sqs / (float)vector_size;
@@ -54,7 +53,7 @@ namespace CategorizacaoParalela {
     }
 
     float DataAnalyzer::std_deviation(const std::vector<float>& vector) {
-        return 0.0f;
+        return std::sqrt(DataAnalyzer::variance(vector));
     }
 
     float DataAnalyzer::iqr(const std::vector<float>& vector) {
