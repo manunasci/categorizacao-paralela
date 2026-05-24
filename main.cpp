@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string>
 
-#include <unordered_map>
-
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -35,7 +33,6 @@ int main(int argc, char* argv[]) {
 
     std::string linhaTexto;
 
-    // Read file
     while (std::getline(dataset_file, linhaTexto)) {
         std::stringstream ss(linhaTexto);
         std::string celula;
@@ -51,26 +48,20 @@ int main(int argc, char* argv[]) {
 
     dataset_file.close();
 
-    // Column validation
-    for (int i = 0; i < matriz[0].size(); ++i) {
-        if (i == 2) {
-            break;
-        }
+    int n_cols_file = matriz[0].size();
 
-        for (int j = 0; j < matriz[0].size(); ++j) {
-            if (i == 0) {
-                Column col;
-                col.col_name = matriz[i][j];
-                file_data.columns.push_back(col);
+    if (matriz.size() < 2) {
+        throw std::runtime_error("Erro: O arquivo deve conter pelo menos o cabeçalho e uma linha de dados.");
+    }
 
-                continue;
-            }
+    for (int j = 0; j < n_cols_file; ++j) {
+        Column col;
+        col.col_name = matriz[0][j];
 
-            if (i == 1) {
-                file_data.columns[j].ix = j;
-                file_data.columns[j].is_num = CategorizacaoParalela::DataValidator::is_num(matriz[i][j]);
-            }
-        }
+        col.ix = j;
+        col.is_num = CategorizacaoParalela::DataValidator::is_num(matriz[1][j]);
+
+        file_data.columns.push_back(col);
     }
 
     for (int i = 0; i < file_data.columns.size(); ++i) {
