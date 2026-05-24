@@ -57,7 +57,32 @@ namespace CategorizacaoParalela {
     }
 
     float DataAnalyzer::iqr(const std::vector<float>& vector) {
-        return 0.0f;
+        float iqr = 0.0f;
+        int n = (int)vector.size();
+
+        if (n < 2) {
+            return iqr;
+        }
+
+        int middle = n / 2;
+        std::vector<float> lower_half;
+        std::vector<float> upper_half;
+
+        if (n % 2 == 0) {
+            lower_half = std::vector<float>(vector.begin(), vector.begin() + middle);
+            upper_half = std::vector<float>(vector.begin() + middle, vector.end());
+        }
+        else {
+            lower_half = std::vector<float>(vector.begin(), vector.begin() + middle);
+            upper_half = std::vector<float>(vector.begin() + middle + 1, vector.end());
+        }
+
+        float q1 = DataAnalyzer::median(lower_half);
+        float q3 = DataAnalyzer::median(upper_half);
+
+        iqr = q3 - q1;
+
+        return iqr;
     }
 
 }
