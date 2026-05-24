@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
     std::ifstream dataset_file(dataset_full_path);
 
     if (!dataset_file.is_open()) {
-        std::cerr << "Erro: O arquivo não foi encontrado!" << std::endl;
+        throw std::runtime_error("Erro: O arquivo não foi encontrado!");
         return 1;
     }
 
