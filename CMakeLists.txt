@@ -8,4 +8,6 @@ add_executable(CategorizacaoParalela main.cpp
         DataValidator.h
         FileData.hpp
         DataAnalyzer.cpp
-        DataAnalyzer.hpp)
+        DataAnalyzer.hpp
+        DataHandler.cpp
+        DataHandler.hpp)
