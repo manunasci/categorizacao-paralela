@@ -7,6 +7,7 @@ namespace CategorizacaoParalela {
         
         float sum = 0.0f, mean = 0.0f;
 
+        #pragma omp parallel for reduction(+:sum)
         for (int i = 0; i < size; ++i) {
             sum += vector[i];
         }
