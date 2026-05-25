@@ -4,7 +4,6 @@
 #include <string>
 
 namespace CategorizacaoParalela {
-
     class DataValidator {
     public:
         static bool is_num(const std::string& s);
