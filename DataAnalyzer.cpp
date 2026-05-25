@@ -39,12 +39,12 @@ namespace CategorizacaoParalela {
             return variance;
         }
 
-        float median = DataAnalyzer::median(vector);
+        float mean = DataAnalyzer::mean(vector);
 
         float sum_sqs = 0.0f;
 
         for (int i = 0; i < vector_size; ++i) {
-            sum_sqs += (float)std::pow(vector[i] - median, 2);
+            sum_sqs += (float)std::pow(vector[i] - mean, 2);
         }
 
         variance = sum_sqs / (float)vector_size;
