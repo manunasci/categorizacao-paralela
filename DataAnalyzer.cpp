@@ -43,6 +43,7 @@ namespace CategorizacaoParalela {
 
         float sum_sqs = 0.0f;
 
+        #pragma omp parallel for reduction(+:sum_sqs)
         for (int i = 0; i < vector_size; ++i) {
             sum_sqs += (float)std::pow(vector[i] - mean, 2);
         }
