@@ -4,14 +4,16 @@
 #include <vector>
 #include <string>
 
-struct Column {
-    std::string col_name;
-    int is_num = 0;
-    int ix = 0;
-};
+namespace CategorizacaoParalela {
+    struct Column {
+        std::string col_name;
+        int is_num = 0;
+        int ix = 0;
+    };
 
-struct FileData {
-    std::vector<Column> columns;
-};
+    struct FileData {
+        std::vector<Column> columns;
+    };
+}
 
-#endif //CATEGORIZACAOPARALELA_FILEDATA_HPP
+#endif

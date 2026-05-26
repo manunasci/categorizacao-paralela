@@ -10,4 +10,5 @@ add_executable(CategorizacaoParalela main.cpp
         DataAnalyzer.cpp
         DataAnalyzer.hpp
         DataHandler.cpp
-        DataHandler.hpp)
+        DataHandler.hpp
+        ColumnTable.hpp)

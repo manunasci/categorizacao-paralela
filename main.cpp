@@ -8,25 +8,12 @@
 #include "DataValidator.h"
 #include "FileData.hpp"
 
-int main(int argc, char* argv[]) {
-
-    bool hasParametros = (argc > 1);
-    std::string dataset_file_name = "dataset_00_1000_sem_virg.csv";
-    FileData file_data;
-
-    if (hasParametros) {
-        dataset_file_name = argv[1];
-    }
-
-    std::string dataset_full_path = "../" + dataset_file_name;
-
-    std::cout << dataset_full_path << std::endl;
-
-    std::ifstream dataset_file(dataset_full_path);
+CategorizacaoParalela::FileData save_file_data(const std::string& file_path) {
+    CategorizacaoParalela::FileData file_data;
+    std::ifstream dataset_file(file_path);
 
     if (!dataset_file.is_open()) {
         throw std::runtime_error("Erro: O arquivo não foi encontrado!");
-        return 1;
     }
 
     std::vector<std::vector<std::string>> matriz;
@@ -55,7 +42,7 @@ int main(int argc, char* argv[]) {
     }
 
     for (int j = 0; j < n_cols_file; ++j) {
-        Column col;
+        CategorizacaoParalela::Column col;
         col.col_name = matriz[0][j];
 
         col.ix = j;
@@ -64,11 +51,22 @@ int main(int argc, char* argv[]) {
         file_data.columns.push_back(col);
     }
 
-    for (int i = 0; i < file_data.columns.size(); ++i) {
-        std::cout << file_data.columns[i].col_name << " | ";
-        std::cout << file_data.columns[i].is_num << " | ";
-        std::cout << file_data.columns[i].ix << std::endl;
+    return file_data;
+}
+
+int main(int argc, char* argv[]) {
+    bool hasParametros = (argc > 1);
+    std::string dataset_file_name = "dataset_00_1000_sem_virg.csv";
+
+    if (hasParametros) {
+        dataset_file_name = argv[1];
     }
+
+    std::string dataset_full_path = "../" + dataset_file_name;
+
+    std::cout << dataset_full_path << std::endl;
+
+    CategorizacaoParalela::FileData file_data = save_file_data(dataset_full_path);
 
     return 0;
 }
