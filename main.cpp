@@ -3,9 +3,9 @@
 
 #include <fstream>
 #include <sstream>
-#include <vector>
 
 #include "DataValidator.h"
+#include "DataAnalyzer.hpp"
 #include "FileData.hpp"
 
 void convert_file_data_to_tables(std::ifstream& dataset_file, CategorizacaoParalela::FileData& file_data) {
@@ -72,9 +72,38 @@ CategorizacaoParalela::FileData save_file_data(const std::string& file_path) {
 
 void run_descriptive_statistic(CategorizacaoParalela::FileData &file_data) {
     for (std::size_t k = 0; k < file_data.columns.size(); ++k) {
-        std::cout << file_data.columns[k].table_name << " | ";
-        std::cout << "is_num: " << file_data.columns[k].is_num << " | ";
-        std::cout << "Rows: " << file_data.columns[k].values.size() << std::endl;
+        if (file_data.columns[k].is_num) {
+            std::vector<float> dadosNumericos;
+            dadosNumericos.reserve(file_data.columns[k].values.size());
+
+            for (const std::string& valorTexto : file_data.columns[k].values) {
+                try {
+                    dadosNumericos.push_back(std::stof(valorTexto));
+                } catch (const std::exception& e) {
+                    dadosNumericos.push_back(0.0f);
+                }
+            }
+
+            if (!dadosNumericos.empty()) {
+                std::cout << "\n=== Estati'sticas da coluna: " << file_data.columns[k].table_name << " ===\n";
+                std::cout << "Me'dia: "              << CategorizacaoParalela::DataAnalyzer::mean(dadosNumericos) << "\n";
+                std::cout << "Mediana: "            << CategorizacaoParalela::DataAnalyzer::median(dadosNumericos) << "\n";
+                std::cout << "Variancia: "          << CategorizacaoParalela::DataAnalyzer::variance(dadosNumericos) << "\n";
+                std::cout << "Desvio Padrao: "      << CategorizacaoParalela::DataAnalyzer::std_deviation(dadosNumericos) << "\n";
+                std::cout << "IQR (Interquartil): " << CategorizacaoParalela::DataAnalyzer::iqr(dadosNumericos) << "\n";
+            }
+
+        } else {
+            std::cout << "Coluna [" << file_data.columns[k].table_name << "] pulada (nao e' nume'rica)." << std::endl;
+        }
+
+        std::vector<std::string> modas = CategorizacaoParalela::DataAnalyzer::mode(file_data.columns[k].values);
+
+        std::cout << "Moda(s): ";
+        for (std::size_t i = 0; i < modas.size(); ++i) {
+            std::cout << modas[i] << (i + 1 < modas.size() ? ", " : "");
+        }
+        std::cout << "\n";
     }
 }
 
