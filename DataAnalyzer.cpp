@@ -21,29 +21,6 @@ namespace CategorizacaoParalela {
         return mean;
     }
 
-    std::vector<float> DataAnalyzer::mode(const std::vector<float>& data) {
-        std::unordered_map<float, std::size_t> frequencies;
-        for (float value : data) {
-            frequencies[value]++;
-        }
-
-        std::size_t max_count = 0;
-        for (const auto& pair : frequencies) {
-            if (pair.second > max_count) {
-                max_count = pair.second;
-            }
-        }
-
-        std::vector<float> modes;
-        for (const auto& pair : frequencies) {
-            if (pair.second == max_count) {
-                modes.push_back(pair.first);
-            }
-        }
-
-        return modes;
-    }
-
     std::vector<std::string> DataAnalyzer::mode(const std::vector<std::string>& data) {
         std::unordered_map<std::string, std::size_t> frequencies;
         for (const std::string& value : data) {
