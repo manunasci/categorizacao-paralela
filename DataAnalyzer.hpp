@@ -2,11 +2,16 @@
 #define CATEGORIZACAOPARALELA_DATAANALYZER_HPP
 
 #include <vector>
+#include <string>
 
 namespace CategorizacaoParalela {
     class DataAnalyzer {
     public:
         static float mean(const std::vector<float>& vector);
+
+        static std::vector<float> mode(const std::vector<float>& data);
+
+        static std::vector<std::string> mode(const std::vector<std::string>& data);
 
         static float median(const std::vector<float>& vector);
 
