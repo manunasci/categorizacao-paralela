@@ -70,6 +70,14 @@ CategorizacaoParalela::FileData save_file_data(const std::string& file_path) {
     return file_data;
 }
 
+void run_descriptive_statistic(CategorizacaoParalela::FileData &file_data) {
+    for (std::size_t k = 0; k < file_data.columns.size(); ++k) {
+        std::cout << file_data.columns[k].table_name << " | ";
+        std::cout << "is_num: " << file_data.columns[k].is_num << " | ";
+        std::cout << "Rows: " << file_data.columns[k].values.size() << std::endl;
+    }
+}
+
 int main(int argc, char* argv[]) {
     bool hasParametros = (argc > 1);
     std::string dataset_file_name = "dataset_00_1000_sem_virg.csv";
@@ -84,11 +92,7 @@ int main(int argc, char* argv[]) {
 
     CategorizacaoParalela::FileData file_data = save_file_data(dataset_full_path);
 
-    for (std::size_t k = 0; k < file_data.columns.size(); ++k) {
-        std::cout << file_data.columns[k].table_name << " | ";
-        std::cout << "is_num: " << file_data.columns[k].is_num << " | ";
-        std::cout << "Rows: " << file_data.columns[k].values.size() << std::endl;
-    }
+    run_descriptive_statistic(file_data);
 
     return 0;
 }
