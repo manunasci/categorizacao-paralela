@@ -5,14 +5,15 @@
 #include <string>
 
 namespace CategorizacaoParalela {
-    struct Column {
-        std::string col_name;
-        int is_num = 0;
-        int ix = 0;
+    struct ColumnTables {
+        bool is_num = false;
+        std::string table_name;
+        std::vector<std::size_t> row_ids;
+        std::vector<std::string> values;
     };
 
     struct FileData {
-        std::vector<Column> columns;
+        std::vector<ColumnTables> columns;
     };
 }
 
