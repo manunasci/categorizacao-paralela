@@ -107,6 +107,58 @@ void run_descriptive_statistic(CategorizacaoParalela::FileData &file_data) {
     }
 }
 
+void exibir_amostragem_dados(const CategorizacaoParalela::FileData& file_data) {
+    char verDados;
+    std::cout << "\nGostaria de ver os dados amostrados das tabelas? (S/N): ";
+    std::cin >> verDados;
+
+    if (verDados != 'S' && verDados != 's') {
+        return;
+    }
+
+    for (std::size_t k = 0; k < file_data.columns.size(); ++k) {
+        const auto& coluna = file_data.columns[k];
+        std::size_t totalLinhas = coluna.values.size();
+
+        std::cout << "\n=============================================\n";
+        std::cout << "Exibindo amostragem para: " << coluna.table_name << "\n";
+        std::cout << "=============================================\n";
+
+        std::size_t limiteHead = std::min(totalLinhas, static_cast<std::size_t>(15));
+        for (std::size_t i = 0; i < limiteHead; ++i) {
+            std::cout << "[" << coluna.table_name << "] "
+                      << "ID: " << coluna.row_ids[i] << " | "
+                      << "Valor: " << coluna.values[i] << "\n";
+        }
+
+        if (totalLinhas > 30) {
+            std::cout << "...\n... [ " << (totalLinhas - 30) << " linhas ocultadas para amostragem ] ...\n...\n";
+        }
+
+        if (totalLinhas > 15) {
+            std::size_t inicioTail = (totalLinhas > 30) ? (totalLinhas - 15) : 15;
+            for (std::size_t i = inicioTail; i < totalLinhas; ++i) {
+                std::cout << "[" << coluna.table_name << "] "
+                          << "ID: " << coluna.row_ids[i] << " | "
+                          << "Valor: " << coluna.values[i] << "\n";
+            }
+        }
+
+        if (k + 1 < file_data.columns.size()) {
+            char proximaTabela;
+            std::cout << "\nGostaria de ir para a proxima tabela/dicionario? (S/N): ";
+            std::cin >> proximaTabela;
+
+            if (proximaTabela == 'N' || proximaTabela == 'n') {
+                std::cout << "Encerrando exibicao a pedido do usuario.\n";
+                break;
+            }
+        } else {
+            std::cout << "\nFim do conjunto de dados atingido.\n";
+        }
+    }
+}
+
 int main(int argc, char* argv[]) {
     bool hasParametros = (argc > 1);
     std::string dataset_file_name = "dataset_00_1000_sem_virg.csv";
@@ -122,6 +174,8 @@ int main(int argc, char* argv[]) {
     CategorizacaoParalela::FileData file_data = save_file_data(dataset_full_path);
 
     run_descriptive_statistic(file_data);
+
+    exibir_amostragem_dados(file_data);
 
     return 0;
 }
