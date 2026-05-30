@@ -85,7 +85,7 @@ void run_descriptive_statistic(CategorizacaoParalela::FileData &file_data) {
             }
 
             if (!dadosNumericos.empty()) {
-                std::cout << "\n=== Estati'sticas da coluna: " << file_data.columns[k].table_name << " ===\n";
+                std::cout << "\n=== Estati'sticas do dicionário: " << file_data.columns[k].table_name << " ===\n";
                 std::cout << "Me'dia: "              << CategorizacaoParalela::DataAnalyzer::mean(dadosNumericos) << "\n";
                 std::cout << "Mediana: "            << CategorizacaoParalela::DataAnalyzer::median(dadosNumericos) << "\n";
                 std::cout << "Variancia: "          << CategorizacaoParalela::DataAnalyzer::variance(dadosNumericos) << "\n";
@@ -94,7 +94,7 @@ void run_descriptive_statistic(CategorizacaoParalela::FileData &file_data) {
             }
 
         } else {
-            std::cout << "Coluna [" << file_data.columns[k].table_name << "] pulada (nao e' nume'rica)." << std::endl;
+            std::cout << "Ana'lise quant. " << file_data.columns[k].table_name << "] pulada (nao e' nume'rica)." << std::endl;
         }
 
         std::vector<std::string> modas = CategorizacaoParalela::DataAnalyzer::mode(file_data.columns[k].values);

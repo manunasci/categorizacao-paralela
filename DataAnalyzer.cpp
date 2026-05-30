@@ -34,6 +34,10 @@ namespace CategorizacaoParalela {
             }
         }
 
+        if (max_count <= 2) {
+            return { "Amodal" };
+        }
+
         std::vector<std::string> modes;
         for (const auto& pair : frequencies) {
             if (pair.second == max_count) {
